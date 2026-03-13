@@ -1,0 +1,31 @@
+# Blueprint para despliegue 1‑click en Render
+services:
+  - type: web
+    name: agente-capicua-imobiliaria
+    runtime: docker
+    plan: free
+    autoDeploy: false  # recomendado para plantillas 1‑click
+    envVars:
+      - key: TZ
+        value: "Europe/Madrid"
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        sync: false            # te lo pedirá al desplegar
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false            # te lo pedirá al desplegar
+      - key: N8N_PROTOCOL
+        value: "https"         # Render pone TLS delante
+      - key: WEBHOOK_URL
+        sync: false            # tras el 1º deploy, pon la URL final https://<tu-servicio>.onrender.com/
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true    # genera clave segura automáticamente
+    # >>> Si quieres persistencia, cambia plan: starter y descomenta:
+    # disk:
+    #   name: n8n-data
+    #   mountPath: /home/node/.n8n
+    #   sizeGB: 1
+
+ 
+
+ 
